@@ -25,8 +25,8 @@
 #import "TheSidebarController.h"
 
 
-static const CGFloat kAnimationDuration = 0.3f;
-static const CGFloat kVisibleWidth = 260.0f;
+static const CGFloat kAnimationDuration = 0.2f;
+static const CGFloat kVisibleWidth = 300.0f;
 
 
 @interface TheSidebarController()
@@ -70,7 +70,7 @@ static const CGFloat kVisibleWidth = 260.0f;
     self = [super init];
     
     if(self)
-    {
+     {
         _contentContainerViewController = [[UIViewController alloc] init];
         _leftSidebarContainerViewController = [[UIViewController alloc] init];
         _rightSidebarContainerViewController = [[UIViewController alloc] init];
@@ -83,7 +83,7 @@ static const CGFloat kVisibleWidth = 260.0f;
         _visibleWidth = kVisibleWidth;
         _sidebarAnimations = @[SIDEBAR_ANIMATIONS];
         _sidebarIsPresenting = NO;
-    }
+     }
     
     return self;
 }
@@ -123,42 +123,42 @@ static const CGFloat kVisibleWidth = 260.0f;
     self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     
     if(self.leftSidebarViewController)
-    {
-        // Parent View Controller
+     {
+            // Parent View Controller
         [self addChildViewController:self.leftSidebarContainerViewController];
         [self.view addSubview:self.leftSidebarContainerViewController.view];
         [self.leftSidebarContainerViewController didMoveToParentViewController:self];
         self.leftSidebarContainerViewController.view.translatesAutoresizingMaskIntoConstraints = self.storyboardsUseAutolayout;
         self.leftSidebarContainerViewController.view.hidden = YES;
         
-        // Child View Controller
+            // Child View Controller
         [self.leftSidebarContainerViewController addChildViewController:self.leftSidebarViewController];
         [self.leftSidebarContainerViewController.view addSubview:self.leftSidebarViewController.view];
         [self.leftSidebarViewController didMoveToParentViewController:self.leftSidebarContainerViewController];
-    }
+     }
     
     if(self.rightSidebarViewController)
-    {
-        // Parent View Controller
+     {
+            // Parent View Controller
         [self addChildViewController:self.rightSidebarContainerViewController];
         [self.view addSubview:self.rightSidebarContainerViewController.view];
         [self.rightSidebarContainerViewController didMoveToParentViewController:self];
         self.rightSidebarContainerViewController.view.translatesAutoresizingMaskIntoConstraints = self.storyboardsUseAutolayout;
         self.rightSidebarContainerViewController.view.hidden = YES;
         
-        // Child View Controller
+            // Child View Controller
         [self.rightSidebarContainerViewController addChildViewController:self.rightSidebarViewController];
         [self.rightSidebarContainerViewController.view addSubview:self.rightSidebarViewController.view];
         [self.rightSidebarViewController didMoveToParentViewController:self.rightSidebarContainerViewController];
-    }
+     }
     
     
-    // Parent View Controller
+        // Parent View Controller
     [self addChildViewController:self.contentContainerViewController];
     [self.view addSubview:self.contentContainerViewController.view];
     [self.contentContainerViewController didMoveToParentViewController:self];
     
-    // Child View Controller
+        // Child View Controller
     [self.contentContainerViewController addChildViewController:self.contentViewController];
     [self.contentContainerViewController.view addSubview:self.contentViewController.view];
     [self.contentViewController didMoveToParentViewController:self.contentContainerViewController];
@@ -221,27 +221,27 @@ static const CGFloat kVisibleWidth = 260.0f;
     self.view.autoresizingMask = UIViewAutoresizingNone;
     
     if(side == LeftSide)
-    {
+     {
         self.leftSidebarContainerViewController.view.hidden = NO;
         self.rightSidebarContainerViewController.view.hidden = YES;
         self.selectedSidebarViewController = self.leftSidebarViewController;
         self.view.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleHeight;
-    }
+     }
     else if(side == RightSide)
-    {
+     {
         self.rightSidebarContainerViewController.view.hidden = NO;
         self.leftSidebarContainerViewController.view.hidden = YES;
         self.selectedSidebarViewController = self.rightSidebarViewController;
         self.view.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleHeight;
-    }
+     }
     
     self.selectedSide = side;
     self.selectedTransitionStyle = transitionStyle;
     
     if([self.delegate conformsToProtocol:@protocol(TheSidebarControllerDelegate)] && [self.delegate respondsToSelector:@selector(sidebarController:willShowViewController:)])
-    {
+     {
         [self.delegate sidebarController:self willShowViewController:self.selectedSidebarViewController];
-    }
+     }
     
     NSString *animationClassName = self.sidebarAnimations[transitionStyle];
     Class animationClass = NSClassFromString(animationClassName);
@@ -255,9 +255,9 @@ static const CGFloat kVisibleWidth = 260.0f;
                                 self.sidebarIsPresenting = YES;
                                 
                                 if([self.delegate conformsToProtocol:@protocol(TheSidebarControllerDelegate)] && [self.delegate respondsToSelector:@selector(sidebarController:didShowViewController:)])
-                                {
+                                 {
                                     [self.delegate sidebarController:self didShowViewController:self.selectedSidebarViewController];
-                                }
+                                 }
                             }
      ];
 }
@@ -267,9 +267,9 @@ static const CGFloat kVisibleWidth = 260.0f;
     [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
     
     if([self.delegate conformsToProtocol:@protocol(TheSidebarControllerDelegate)] && [self.delegate respondsToSelector:@selector(sidebarController:willHideViewController:)])
-    {
+     {
         [self.delegate sidebarController:self willHideViewController:self.selectedSidebarViewController];
-    }
+     }
     
     NSString *animationClassName = self.sidebarAnimations[self.selectedTransitionStyle];
     Class animationClass = NSClassFromString(animationClassName);
@@ -283,9 +283,9 @@ static const CGFloat kVisibleWidth = 260.0f;
                                        self.sidebarIsPresenting = NO;
                                        
                                        if([self.delegate conformsToProtocol:@protocol(TheSidebarControllerDelegate)] && [self.delegate respondsToSelector:@selector(sidebarController:didHideViewController:)])
-                                       {
+                                        {
                                            [self.delegate sidebarController:self didHideViewController:self.selectedSidebarViewController];
-                                       }
+                                        }
                                    }
      ];
 }
@@ -294,13 +294,13 @@ static const CGFloat kVisibleWidth = 260.0f;
 #pragma mark - UIViewController Setters
 - (void)setContentViewController:(UIViewController *)contentViewController
 {
-    // Old View Controller
+        // Old View Controller
     UIViewController *oldViewController = self.contentViewController;
     [oldViewController willMoveToParentViewController:nil];
     [oldViewController.view removeFromSuperview];
     [oldViewController removeFromParentViewController];
     
-    // New View Controller
+        // New View Controller
     UIViewController *newViewController = contentViewController;
     [self.contentContainerViewController addChildViewController:newViewController];
     [self.contentContainerViewController.view addSubview:newViewController.view];
@@ -311,13 +311,13 @@ static const CGFloat kVisibleWidth = 260.0f;
 
 - (void)setLeftSidebarViewController:(UIViewController *)leftSidebarViewController
 {
-    // Old View Controller
+        // Old View Controller
     UIViewController *oldViewController = self.leftSidebarViewController;
     [oldViewController willMoveToParentViewController:nil];
     [oldViewController.view removeFromSuperview];
     [oldViewController removeFromParentViewController];
     
-    // New View Controller
+        // New View Controller
     UIViewController *newViewController = leftSidebarViewController;
     [self.leftSidebarContainerViewController addChildViewController:newViewController];
     [self.leftSidebarContainerViewController.view addSubview:newViewController.view];
@@ -328,13 +328,13 @@ static const CGFloat kVisibleWidth = 260.0f;
 
 - (void)setRightSidebarViewController:(UIViewController *)rightSidebarViewController
 {
-    // Old View Controller
+        // Old View Controller
     UIViewController *oldViewController = self.leftSidebarViewController;
     [oldViewController willMoveToParentViewController:nil];
     [oldViewController.view removeFromSuperview];
     [oldViewController removeFromParentViewController];
     
-    // New View Controller
+        // New View Controller
     UIViewController *newViewController = rightSidebarViewController;
     [self.rightSidebarContainerViewController addChildViewController:newViewController];
     [self.rightSidebarContainerViewController.view addSubview:newViewController.view];
@@ -351,14 +351,14 @@ static const CGFloat kVisibleWidth = 260.0f;
     
     if((toInterfaceOrientation == UIInterfaceOrientationPortrait) ||
        (toInterfaceOrientation == UIInterfaceOrientationPortraitUpsideDown))
-    {
+     {
         NSLog(@"Portrait");
-    }
+     }
     else if((toInterfaceOrientation == UIInterfaceOrientationLandscapeLeft) ||
             (toInterfaceOrientation == UIInterfaceOrientationLandscapeRight))
-    {
+     {
         NSLog(@"Landscape");
-    }
+     }
     
     
 }
@@ -394,16 +394,22 @@ static const CGFloat kVisibleWidth = 260.0f;
 - (TheSidebarController *)sidebarController
 {
     if([self.parentViewController.parentViewController isKindOfClass:[TheSidebarController class]])
-    {
+     {
         return (TheSidebarController *)self.parentViewController.parentViewController;
-    }
+     }
     else if([self.parentViewController isKindOfClass:[UINavigationController class]] &&
             [self.parentViewController.parentViewController.parentViewController isKindOfClass:[TheSidebarController class]])
-    {
+     {
         return (TheSidebarController *)self.parentViewController.parentViewController.parentViewController;
-    }
+     }
     
     return nil;
+}
+
+#pragma mark - Status bar style
+
+- (UIStatusBarStyle)preferredStatusBarStyle{
+    return [(TheSidebarController*)self sidebarIsPresenting] ? UIStatusBarStyleLightContent : UIStatusBarStyleDefault;
 }
 
 @end
