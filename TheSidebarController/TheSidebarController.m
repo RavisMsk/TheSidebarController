@@ -385,6 +385,12 @@ static const CGFloat kVisibleWidth = 300.0f;
     view.layer.anchorPoint = anchorPoint;
 }
 
+#pragma mark - Status bar style
+
+- (UIStatusBarStyle)preferredStatusBarStyle{
+    return [self.contentViewController preferredStatusBarStyle];
+}
+
 @end
 
 
@@ -404,12 +410,6 @@ static const CGFloat kVisibleWidth = 300.0f;
      }
     
     return nil;
-}
-
-#pragma mark - Status bar style
-
-- (UIStatusBarStyle)preferredStatusBarStyle{
-    return [(TheSidebarController*)self sidebarIsPresenting] ? UIStatusBarStyleLightContent : UIStatusBarStyleDefault;
 }
 
 @end
